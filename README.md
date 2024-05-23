@@ -36,6 +36,7 @@ We see 2 entries where new users were added. The first entry with *'username -'*
 ### Detecting password attacks
 Another attack that very few SIEMs detect is password spraying. This is where an attacker takes a user list from a domain, and sprays it with the same password. Password sprays are effective because it keeps the lockout threshold below the lockout policy and many times flies under the radar simply because accounts are not getting locked out. But, this is the exact behavior that UEBA should be able to detect. 
 <br>
+<br>
 Let's look at an event log with a password guessing attack. This is very much part of what a full UEBA(User and Entity Behavior Analytics) solution does:
 ```
 .\DeepBlue.ps1 .\evtx\smb-password-guessing-security.evtx
