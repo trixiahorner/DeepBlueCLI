@@ -27,7 +27,7 @@ We can check the .evtx files for adding a new user. (Choose R when prompted)
 ```
 .\DeepBlue.ps1 .\evtx\new-user-security.evtx
 ```
-![set-execution](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D2.png?raw=true)
+![user add](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D2.png?raw=true)
 <br>
 We see 2 entries where new users were added. The first entry with *'username -'* shows a user added to the local Administrators group and worth investigating. 
 <br>
@@ -40,7 +40,30 @@ Let's look at an event log with a password guessing attack. This is very much pa
 ```
 .\DeepBlue.ps1 .\evtx\smb-password-guessing-security.evtx
 ```
-![set-execution](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D3.png?raw=true)
+![password guess](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D3.png?raw=true)
+<br>
+Here we have 3560 failed login attempts for for the administrator account. This is a very clear indication of a password attack against a single account.
+<br>
+<br>
+Let's see what a password spray looks like. 
+```
+.\DeepBlue.ps1 .\evtx\password-spray.evtx
+```
+![password spray](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D4.png?raw=true)
+<br>
+We see a bunch of user accounts that are trying to be accessed. And they are all trying to be acced from one user: *jwrig*. A single password against multiple accounts. 
+<br>
+<br>
+
+### Idnetifiying encoding/obfuscation tactics
+Finally, let’s look at how DeepBlueCLI detects various encoding tactics that attackers use to obfuscate their attacks. It is very common for attackers to use a number of encoding techniques to bypass signature detection. However, it is not something that normally happens with standard scripts.
+```
+.\DeepBlue.ps1 .\evtx\Powershell-Invoke-Obfuscation-encoding-menu.evtx
+```
+![obfuscation](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D5.png?raw=true)
+<br>
+![obfuscation](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D6.png?raw=true)
+<br>
 <br>
 
 # Conclusion
