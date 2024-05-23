@@ -19,6 +19,29 @@ Set-ExecutionPolicy unrestricted
 <br>
 <br>
 
+## Methodology
+### Check for *new user* add
+It is very common for attackers to add additional users on to a system they have compromised. This gives them a level of persistence that they otherwise would not gain with malware. Why? There are lots and lots of tools to detect malware. By creating an extra user account it allows them to blend in.
+<br>
+We can check the .evtx files for adding a new user. (Choose R when prompted)
+```
+.\DeepBlue.ps1 .\evtx\new-user-security.evtx
+```
+![set-execution](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D2.png?raw=true)
+<br>
+We see 2 entries where new users were added. The first entry with *'username -'* shows a user added to the local Administrators group and worth investigating. 
+<br>
+<br>
+
+### Detecting password attacks
+Another attack that very few SIEMs detect is password spraying. This is where an attacker takes a user list from a domain, and sprays it with the same password. Password sprays are effective because it keeps the lockout threshold below the lockout policy and many times flies under the radar simply because accounts are not getting locked out. But, this is the exact behavior that UEBA should be able to detect. 
+<br>
+Let's look at an event log with a password guessing attack. This is very much part of what a full UEBA(User and Entity Behavior Analytics) solution does:
+```
+.\DeepBlue.ps1 .\evtx\smb-password-guessing-security.evtx
+```
+![set-execution](https://github.com/trixiahorner/DeepBlueCLI/blob/main/images/D3.png?raw=true)
+<br>
 
 # Conclusion
 Understanding these detection methods is crucial for maintaining robust security postures and highlights the importance of augmenting automated defenses with detailed log analysis.
